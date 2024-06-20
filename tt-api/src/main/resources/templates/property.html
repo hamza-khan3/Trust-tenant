@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustTenant - Reliable Rental Listings</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+
+<dl>
+    <dt>Address</dt>
+    <dd th:text="${property.getAddress()}"></dd>
+    <dt>Landlord email</dt>
+    <dd th:text="${property.getOwner().getEmail()}"></dd>
+    <dt>Available listings</dt>
+    <dd th:text="${property.getListings().size()}"></dd>
+</dl>
+
+<p>
+    <span>List of listings</span>
+</p>
+
+<div th:if="${ not#lists.isEmpty(property.getListings())}">
+    <div class="list-property" th:each="listing : ${property.getListings()}">
+        <span class="listing_type" th:text="${listing.getType()} + '   '"></span>
+        <span class="listing_cell" th:text="'$' + ${listing.getRent()} + '   '"></span>
+        <span class="listing_cell" th:text="${listing.getNumBeds() + ' Beds   '}  "></span>
+        <span class="listing_cell" th:text="${listing.getNumBaths() + ' Baths  '}  "></span>
+        <span class="listing_cell" th:text="${listing.getSqrFootage() + ' sqr ft  '}"></span>
+        <ul>
+            <li th:each="descriptor : ${listing.getDescriptors()}" th:text="${descriptor}"></li>
+        </ul>
+    </div>
+</div>
+
+<button onclick="saveProperty()">Save</button>
+
+<script src="/js/script.js"></script>
+</body>
+</html>
